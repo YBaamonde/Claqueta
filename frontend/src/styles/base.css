@@ -1,0 +1,84 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; min-height: 100dvh; background: var(--ink); color: var(--text);
+  font-family: var(--font-ui); font-size: 16px; line-height: 1.45; font-weight: 420;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+/* La luz de la sala: dos focos que toman el color del ánimo elegido */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(900px 560px at 88% -8%, color-mix(in oklab, var(--mood-a) 38%, transparent), transparent 72%),
+    radial-gradient(760px 520px at -8% 108%, color-mix(in oklab, var(--mood-b) 20%, transparent), transparent 70%);
+}
+body.no-scroll { overflow: hidden; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; border-radius: 4px; }
+::selection { background: color-mix(in oklab, var(--amber) 45%, transparent); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.muted { color: var(--muted); }
+.small { font-size: 0.875rem; }
+.pad { padding: 16px 4px; }
+.flip { transform: rotate(180deg); }
+
+.h1 {
+  font-size: clamp(1.9rem, 5vw, 2.8rem); font-weight: 780; font-stretch: 78%; line-height: 1.02;
+  letter-spacing: -0.012em; margin: 4px 0 10px;
+}
+.lead { font-family: var(--font-read); font-size: 1.1rem; line-height: 1.55; color: var(--muted); max-width: 62ch; margin-bottom: 18px; }
+
+/* ---------- Estructura de la app ---------- */
+.app { min-height: 100dvh; display: flex; flex-direction: column; }
+.top {
+  position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 24px;
+  padding: 10px max(var(--gutter), calc((100vw - 1280px) / 2 + var(--gutter)));
+  background: color-mix(in oklab, var(--ink) 82%, transparent); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--paper); font-weight: 800; font-stretch: 75%; font-size: 1.45rem; letter-spacing: -0.01em; }
+.brand svg { color: var(--amber); }
+.nav { display: none; gap: 4px; margin-left: auto; }
+.nav a, .dock a {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--muted);
+  padding: 8px 14px; border-radius: 999px; font-weight: 560; transition: color 0.15s, background 0.15s;
+}
+.nav a:hover, .dock a:hover { color: var(--text); }
+.nav a.is-on { color: var(--ink); background: var(--paper); }
+.dock {
+  position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr);
+  padding: 6px 6px calc(6px + var(--safe-b)); background: color-mix(in oklab, var(--ink-2) 94%, transparent);
+  backdrop-filter: blur(14px); border-top: 1px solid var(--line);
+}
+.dock a { flex-direction: column; gap: 3px; padding: 7px 2px; font-size: 0.72rem; border-radius: 12px; text-align: center; }
+.dock a span { white-space: nowrap; }
+.dock a.is-on { color: var(--amber); background: var(--ink-3); }
+.page { flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; padding: 18px var(--gutter) calc(var(--nav-h) + 40px + var(--safe-b)); }
+@media (min-width: 760px) {
+  .nav { display: flex; }
+  .dock { display: none; }
+  .page { padding-bottom: 60px; padding-top: 28px; --gutter: 28px; }
+}
+
+.splash { min-height: 100dvh; display: grid; place-content: center; justify-items: center; gap: 14px; text-align: center; padding: 24px; }
+.splash svg { color: var(--amber); }
+.splash h1 { font-size: 2rem; font-stretch: 78%; font-weight: 780; }
+.splash p { color: var(--muted); max-width: 40ch; }
+.login { display: grid; gap: 10px; width: min(340px, 100%); text-align: left; margin-top: 8px; }
+.login label { font-weight: 600; }
+.login input, .frow input, .select select {
+  height: 46px; padding: 0 14px; border-radius: var(--r-md); background: var(--ink-3); border: 1.5px solid var(--line); width: 100%;
+}
+.login input:focus, .frow input:focus, .ask input:focus-visible { outline: none; border-color: var(--amber); }
+.form-error { color: var(--cut); font-weight: 560; padding: 6px 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

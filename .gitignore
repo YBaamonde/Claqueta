@@ -1,0 +1,21 @@
+# Secretos y datos locales
+.env
+data/
+*.db
+*.sqlite*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Node / build
+node_modules/
+frontend/dist/
+backend/static/
+
+# Editor / SO
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,39 @@
+# Claqueta — ¿qué película veo esta noche?
+# Uso:   cp .env.example .env   (edítalo)   ·   docker compose up -d --build
+# Abre:  http://IP-DEL-SERVIDOR:${CLAQUETA_PORT:-8420}
+services:
+  claqueta:
+    build: .
+    image: claqueta:latest
+    container_name: claqueta
+    restart: unless-stopped
+    ports:
+      - "${CLAQUETA_PORT:-8420}:8000"
+    env_file:
+      - path: .env
+        required: false   # funciona también sin .env: todo se puede poner desde Ajustes
+    environment:
+      DATA_DIR: /data
+      TZ: ${TZ:-Europe/Madrid}
+    volumes:
+      # Base de datos SQLite, caché de pósters y ajustes (todo lo que importa vive aquí).
+      - claqueta-data:/data
+      # ¿Prefieres una carpeta visible del host? Cambia la línea de arriba por esta y haz antes:
+      #   mkdir -p ./data && sudo chown -R 1000:1000 ./data
+      # - ./data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=4).status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    # Para que Claqueta hable con Jellyfin/Jellyseerr/Radarr por nombre de contenedor,
+    # únelo a la misma red que tu stack. Descomenta y ajusta el nombre de la red:
+    # networks: [homeserver]
+
+# networks:
+#   homeserver:
+#     external: true
+
+volumes:
+  claqueta-data:

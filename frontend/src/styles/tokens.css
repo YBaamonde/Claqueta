@@ -1,0 +1,42 @@
+/* Colores del estado de ánimo: al cambiar de ánimo, la sala cambia de luz. */
+@property --mood-a { syntax: '<color>'; inherits: true; initial-value: #6a4c93; }
+@property --mood-b { syntax: '<color>'; inherits: true; initial-value: #ffb547; }
+
+:root {
+  color-scheme: dark;
+
+  /* Sala a oscuras: berenjena casi negra, con superficies cada vez más claras */
+  --ink: #17131b;
+  --ink-2: #1f1a26;
+  --ink-3: #2a2333;
+  --ink-4: #362d41;
+  --line: #3d3348;
+  --line-soft: #2e2638;
+
+  /* Texto: blanco proyector, no gris neutro */
+  --paper: #f4ebdc;
+  --text: #ece4d6;
+  --muted: #ada1ba;
+  --faint: #85799a;
+
+  /* Señales con significado fijo */
+  --amber: #ffb547;   /* haz del proyector: acción principal y énfasis */
+  --cut: #ff6577;     /* corten: descartar, avisos */
+  --go: #52d9a6;      /* toma buena: aceptar, disponible */
+  --info: #84bbff;
+
+  --mood-a: #6a4c93;
+  --mood-b: #ffb547;
+  transition: --mood-a 0.8s ease, --mood-b 0.8s ease;
+
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 22px;
+
+  --font-ui: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-read: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+
+  --nav-h: 64px;
+  --gutter: 16px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
