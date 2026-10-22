@@ -1,6 +1,7 @@
 # Secretos y datos locales
 .env
-data/
+/data/
+/backend/data/
 *.db
 *.sqlite*
 

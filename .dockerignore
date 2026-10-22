@@ -5,7 +5,7 @@
 **/.pytest_cache
 **/.venv
 **/.env
-data
+/data
 .git
 docs
 backend/tests
